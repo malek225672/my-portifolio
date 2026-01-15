@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malek | Full-Stack AI & App Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030308;
+            --glass: rgba(255, 255, 255, 0.03);
+            --accent: #7d5fff;
+            --cyan: #3ae3ff;
+            --text: #ffffff;
+            --card-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            /* Deep Space Gradient */
+            background: radial-gradient(circle at top right, #1a1a3a 0%, #030308 50%, #0c0c1d 100%);
+            background-attachment: fixed;
+        }
+
+        /* Animated Star Field Effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.4;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: var(--cyan);
+            text-shadow: 0 0 10px var(--cyan);
+        }
+
+        /* Hero Section */
+        header {
+            text-align: center;
+            padding: 100px 0;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin: 0;
+            line-height: 1.1;
+            background: linear-gradient(90deg, #fff, var(--cyan), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            margin: 20px 0;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 0 30px rgba(58, 227, 255, 0.1);
+            transform: translateY(-10px);
+        }
+
+        /* Grid for Projects */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        /* Skills Tags */
+        .skill-group {
+            margin-top: 30px;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin: 5px;
+            color: var(--cyan);
+            transition: 0.3s;
+        }
+
+        .skill-tag:hover {
+            background: var(--cyan);
+            color: #000;
+            box-shadow: 0 0 15px var(--cyan);
+        }
+
+        /* Galaxy Button */
+        .btn {
+            background: linear-gradient(45deg, var(--accent), var(--cyan));
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 30px;
+            transition: 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(125, 95, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--cyan), 0 0 50px var(--accent);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            opacity: 0.5;
+            font-size: 0.9rem;
+        }
+
+        h2 { color: var(--cyan); font-size: 2rem; margin-top: 0; }
+        h3 { margin-top: 0; color: #fff; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <div class="logo">MALEK_010</div>
+            <div class="nav-links">
+                <span style="opacity: 0.7;">5 Years in Tech</span>
+            </div>
+        </nav>
+
+        <header>
+            <h1>Coding Across <br>The Digital Galaxy</h1>
+            <p class="hero-sub">Full-Stack Developer Specializing in Flutter, Python & AI Solutions</p>
+            
+            <div class="skill-group">
+                <span class="skill-tag">PYTHON</span>
+                <span class="skill-tag">FLUTTER</span>
+                <span class="skill-tag">DART</span>
+                <span class="skill-tag">JAVASCRIPT</span>
+                <span class="skill-tag">AI & ML</span>
+                <span class="skill-tag">HTML/CSS</span>
+            </div>
+
+            <a href="https://www.fiverr.com/malek_010" target="_blank" class="btn">Start Your Project</a>
+        </header>
+
+        <section id="work">
+            <div class="glass-card">
+                <h2>🌌 My Expertise</h2>
+                <p>Over the last 5 years, I have built a bridge between complex code and user-friendly design. My mission is to provide scalable, intelligent software that solves real-world problems.</p>
+            </div>
+
+            <div class="grid">
+                <div class="glass-card">
+                    <h3>📱 Mobile Dev</h3>
+                    <p>Building high-performance, cross-platform apps with <b>Flutter & Dart</b>. One codebase, flawless performance on iOS & Android.</p>
+                </div>
+                <div class="glass-card">
+                    <h3>🤖 AI Integration</h3>
+                    <p>Leveraging <b>Python</b> to integrate AI models and automation. I make apps smarter with LLMs and predictive data.</p>
+                </div>
+                <div class="glass-card">
+                    <h3>💻 Web Solutions</h3>
+                    <p>Crafting modern, responsive front-ends with <b>JavaScript & CSS</b>. Focused on speed, SEO, and galaxy-tier aesthetics.</p>
+                </div>
+            </div>
+        </section>
+
+        <section style="text-align: center; margin-top: 50px;">
+            <div class="glass-card" style="border: 1px solid var(--cyan);">
+                <h2>Ready to Launch?</h2>
+                <p>I am currently accepting new projects on Fiverr. Let's build something out of this world.</p>
+                <a href="https://www.fiverr.com/malek_010" target="_blank" class="btn">Visit My Fiverr Profile</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Malek_010 | Designed for the Future</p>
+        </footer>
+    </div>
+
+</body>
+</html>
