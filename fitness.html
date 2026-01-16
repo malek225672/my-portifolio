@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Lab | Personal Training</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;600;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --neon-green: #ccff00;
+            --dark: #0a0a0a;
+            --gray: #1a1a1a;
+        }
+
+        body {
+            margin: 0;
+            background: var(--dark);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            /* REMOVED CUSTOM CURSOR STYLES */
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--neon-green);
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: white;
+            font-weight: 900;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            border: 1px solid var(--neon-green);
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            background: var(--neon-green);
+            color: black;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 10%;
+            margin-top: 80px;
+        }
+
+        .hero h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(2.5rem, 10vw, 6rem);
+            line-height: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            max-width: 600px;
+            font-size: 1.2rem;
+            color: #888;
+            line-height: 1.6;
+        }
+
+        /* Calculator Section */
+        .section-label {
+            text-align: center;
+            color: var(--neon-green);
+            letter-spacing: 5px;
+            font-weight: 900;
+            margin-bottom: 50px;
+            display: block;
+        }
+
+        .calc-container {
+            max-width: 1000px;
+            margin: 0 auto 100px;
+            background: var(--gray);
+            border-radius: 40px;
+            padding: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            border: 1px solid #333;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .val-display {
+            color: var(--neon-green);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #333;
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+            accent-color: var(--neon-green);
+        }
+
+        .result-circle {
+            width: 300px;
+            height: 300px;
+            border: 4px solid var(--neon-green);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 0 30px rgba(204, 255, 0, 0.2);
+        }
+
+        .calories-value {
+            font-family: 'Syncopate';
+            font-size: 4.5rem;
+            color: var(--neon-green);
+            line-height: 1;
+        }
+
+        /* Training Plans Section */
+        .plans-list {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+        }
+
+        .plan-item {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            align-items: center;
+            padding: 40px;
+            border-top: 1px solid #333;
+            transition: 0.3s;
+        }
+
+        .plan-item:hover {
+            background: #111;
+        }
+
+        .plan-item h3 {
+            font-family: 'Syncopate';
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .plan-item p {
+            color: #777;
+            margin: 0;
+        }
+
+        .plan-btn {
+            background: var(--neon-green);
+            color: black;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 900;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .calc-container {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+
+            .plan-item {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">TITAN.FIT</div>
+        <a href="../../portfolio.html" class="back-link">← PORTFOLIO</a>
+    </nav>
+
+    <header class="hero">
+        <h1 data-aos="fade-up">SMART <br> TRAINING.</h1>
+        <p>Expert personal training plans and nutrition tracking designed to transform your physique with science-based
+            data.</p>
+    </header>
+
+    <span class="section-label">01. CALORIE ESTIMATOR</span>
+
+    <section class="calc-container">
+        <div class="controls">
+            <div class="input-group">
+                <label>WORKOUT INTENSITY <span class="val-display" id="int-val">50%</span></label>
+                <input type="range" id="intensity" min="10" max="100" value="50">
+            </div>
+
+            <div class="input-group">
+                <label>SESSION DURATION <span class="val-display" id="dur-val">45 min</span></label>
+                <input type="range" id="duration" min="15" max="120" value="45">
+            </div>
+
+            <div class="input-group">
+                <label>YOUR WEIGHT <span class="val-display" id="weight-val">75 kg</span></label>
+                <input type="range" id="weight" min="40" max="150" value="75">
+            </div>
+        </div>
+
+        <div class="result-circle">
+            <span style="font-size: 0.8rem; letter-spacing: 3px; color: #888;">BURNED</span>
+            <div class="calories-value" id="cal-result">450</div>
+            <span style="font-size: 0.8rem; letter-spacing: 3px; color: var(--neon-green);">KCAL</span>
+        </div>
+    </section>
+
+    <span class="section-label">02. CHOOSE YOUR GOAL</span>
+
+    <section class="plans-list">
+        <div class="plan-item">
+            <h3>MUSCLE BUILD</h3>
+            <p>Focus on progressive overload and high-protein nutrition for maximum hypertrophy.</p>
+            <button class="plan-btn">GET PLAN</button>
+        </div>
+        <div class="plan-item">
+            <h3>FAT LOSS</h3>
+            <p>Calculated caloric deficit combined with HIIT and strength training to retain muscle.</p>
+            <button class="plan-btn">GET PLAN</button>
+        </div>
+        <div class="plan-item">
+            <h3>ATHLETICISM</h3>
+            <p>Explosive power and mobility drills for peak physical performance and speed.</p>
+            <button class="plan-btn">GET PLAN</button>
+        </div>
+    </section>
+
+    <script>
+        // Update Displays
+        const intensity = document.getElementById('intensity');
+        const duration = document.getElementById('duration');
+        const weight = document.getElementById('weight');
+        const result = document.getElementById('cal-result');
+
+        const intVal = document.getElementById('int-val');
+        const durVal = document.getElementById('dur-val');
+        const weightVal = document.getElementById('weight-val');
+
+        function calculate() {
+            // Update Text Displays
+            intVal.innerText = intensity.value + "%";
+            durVal.innerText = duration.value + " min";
+            weightVal.innerText = weight.value + " kg";
+
+            // Calculation logic
+            const met = (intensity.value / 10);
+            const burned = (met * weight.value * (duration.value / 60)).toFixed(0);
+
+            // GSAP Number Animation
+            gsap.to(result, {
+                innerText: burned,
+                duration: 0.4,
+                snap: { innerText: 1 }
+            });
+        }
+
+        [intensity, duration, weight].forEach(input => {
+            input.addEventListener('input', calculate);
+        });
+
+        // Intro Animations
+        gsap.from(".hero h1", { opacity: 0, y: 50, duration: 1, ease: "power4.out" });
+        gsap.from(".hero p", { opacity: 0, y: 20, duration: 1, delay: 0.3 });
+        gsap.from(".calc-container", {
+            scrollTrigger: { trigger: ".calc-container", start: "top 80%" },
+            opacity: 0, y: 100, duration: 1
+        });
+    </script>
+</body>
+
+</html>
