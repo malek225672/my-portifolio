@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopPro | Super-App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #ff4b2b;
+            --secondary: #1e272e;
+            --bg: #f8f9fb;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--secondary);
+            overflow-x: hidden;
+        }
+
+        /* Navbar & Search */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 90px;
+            background: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .search-container {
+            flex-grow: 1;
+            max-width: 500px;
+            margin: 0 30px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border-radius: 15px;
+            border: 1px solid #eee;
+            background: #f9f9f9;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-container input:focus {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 15px rgba(255, 75, 43, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.6rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .cart-icon-wrapper {
+            cursor: pointer;
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            gap: 15px;
+            margin: 120px auto 30px;
+            max-width: 1200px;
+            padding: 0 20px;
+            overflow-x: auto;
+        }
+
+        .cat-btn {
+            padding: 12px 25px;
+            background: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .cat-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 15px;
+            box-shadow: var(--shadow);
+            transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+            position: relative;
+            opacity: 1 !important;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .img-container {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            background: #eee;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+        }
+
+        .card h3 {
+            margin: 5px 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #111;
+        }
+
+        .card .vendor {
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .card .price {
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .add-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: #f4f4f4;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .add-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            right: -450px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: -15px 0 50px rgba(0, 0, 0, 0.1);
+            z-index: 2000;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f9f9f9;
+        }
+
+        .qty-badge {
+            background: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+        }
+
+        .flying-item {
+            position: fixed;
+            z-index: 3000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo" onclick="location.reload()"><i data-lucide="shopping-bag"></i> ShopPro</div>
+
+        <div class="search-container">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search for burgers, iPhone, shoes..."
+                onkeyup="handleSearch()">
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="../../index.html"
+                style="text-decoration:none; color:#888; font-weight:600; font-size:0.9rem;">← PORTFOLIO</a>
+            <div class="cart-icon-wrapper" onclick="toggleCart()">
+                <i data-lucide="shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterItems('all')">All</button>
+        <button class="cat-btn" onclick="filterItems('food')">Food</button>
+        <button class="cat-btn" onclick="filterItems('tech')">Electronics</button>
+        <button class="cat-btn" onclick="filterItems('fashion')">Fashion</button>
+    </div>
+
+    <div class="container">
+        <div class="grid" id="product-grid"></div>
+    </div>
+
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2 style="margin:0">My Basket</h2>
+            <i data-lucide="x" onclick="toggleCart()" style="cursor:pointer"></i>
+        </div>
+        <div id="cart-list" style="flex-grow:1; overflow-y:auto;"></div>
+        <div style="border-top: 1px solid #eee; padding-top: 20px;">
+            <div style="display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: 800;">
+                <span>Total</span>
+                <span id="total-price" style="color:var(--primary)">QR 0.00</span>
+            </div>
+            <button
+                style="width:100%; padding:20px; background:var(--primary); color:white; border:none; border-radius:15px; font-weight:700; font-size:1.1rem; margin-top:20px; cursor:pointer;">Order
+                Now</button>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            // FOOD
+            { id: 1, cat: 'food', vendor: "McDonald's", name: "Big Mac Combo", price: 28.0, img: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=500" },
+            { id: 2, cat: 'food', vendor: "McDonald's", name: "McChicken Deluxe", price: 22.0, img: "https://images.unsplash.com/photo-1610614819513-58e34989848b?w=500" },
+            { id: 3, cat: 'food', vendor: "Pizza Hut", name: "Pepperoni Passion", price: 45.0, img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500" },
+            { id: 11, cat: 'food', vendor: "Starbucks", name: "Iced Caramel Latte", price: 24.0, img: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500" },
+            // TECH
+            { id: 4, cat: 'tech', vendor: "Apple", name: "iPhone 15 Pro Max", price: 4899.0, img: "https://www.apple.com/newsroom/images/2023/09/apple-unveils-iphone-15-pro-and-iphone-15-pro-max/article/Apple-iPhone-15-Pro-lineup-hero-230912_Full-Bleed-Image.jpg.xlarge_2x.jpg" },
+            { id: 5, cat: 'tech', vendor: "Samsung", name: "Odyssey G9 Monitor", price: 3200.0, img: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500" },
+            { id: 12, cat: 'tech', vendor: "NVIDIA", name: "RTX 4090 GPU", price: 7500.0, img: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=500" },
+            { id: 13, cat: 'tech', vendor: "Sony", name: "PlayStation 5 Slim", price: 1899.0, img: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=500" },
+            // FASHION
+            { id: 6, cat: 'fashion', vendor: "Nike", name: "Air Jordan 1 Retro", price: 850.0, img: "https://dripchileno.cl/wp-content/uploads/2023/09/dripchileno.cl_325513082_631952648734633_5659448856675111980_n.jpg" },
+            { id: 14, cat: 'fashion', vendor: "Rolex", name: "Submariner Date", price: 45000.0, img: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=500" },
+            { id: 15, cat: 'fashion', vendor: "Nike", name: "Tech Fleece Hoodie", price: 420.0, img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500" }
+        ];
+
+        let cart = {};
+
+        function renderGrid(data) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            data.forEach(p => {
+                grid.innerHTML += `
+                    <div class="card">
+                        <div class="vendor">${p.vendor}</div>
+                        <div class="img-container"><img src="${p.img}"></div>
+                        <h3>${p.name}</h3>
+                        <div class="price">QR ${p.price.toFixed(2)}</div>
+                        <button class="add-btn" onclick="addToCart(${p.id}, event)">Add to Basket</button>
+                    </div>
+                `;
+            });
+            gsap.from(".card", { opacity: 0, y: 30, stagger: 0.05 });
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.vendor.toLowerCase().includes(query));
+            renderGrid(filtered);
+        }
+
+        function filterItems(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            const filtered = cat === 'all' ? products : products.filter(p => p.cat === cat);
+            renderGrid(filtered);
+        }
+
+        function addToCart(id, event) {
+            cart[id] = (cart[id] || 0) + 1;
+            const product = products.find(p => p.id === id);
+
+            const rect = event.target.getBoundingClientRect();
+            const fly = document.createElement('img');
+            fly.src = product.img;
+            fly.className = 'flying-item';
+            fly.style.left = rect.left + 'px'; fly.style.top = rect.top + 'px';
+            document.body.appendChild(fly);
+
+            gsap.to(fly, {
+                x: window.innerWidth - 80, y: 20, scale: 0.1, opacity: 0, duration: 0.7,
+                onComplete: () => { fly.remove(); updateUI(); }
+            });
+        }
+
+        function updateUI() {
+            const list = document.getElementById('cart-list');
+            list.innerHTML = '';
+            let total = 0, count = 0;
+            for (const id in cart) {
+                const p = products.find(prod => prod.id == id);
+                total += p.price * cart[id];
+                count += cart[id];
+                list.innerHTML += `
+                    <div class="cart-row">
+                        <img src="${p.img}" style="width:50px; height:50px; border-radius:10px; object-fit:cover;">
+                        <div style="flex-grow:1">
+                            <div style="font-weight:700; font-size:0.9rem">${p.name}</div>
+                            <div style="font-size:0.8rem">QR ${p.price} <span class="qty-badge">x${cart[id]}</span></div>
+                        </div>
+                        <i data-lucide="trash-2" onclick="removeItem(${id})" style="cursor:pointer; color:#ddd; width:18px"></i>
+                    </div>
+                `;
+            }
+            document.getElementById('cart-count').innerText = count;
+            document.getElementById('total-price').innerText = `QR ${total.toFixed(2)}`;
+            lucide.createIcons();
+        }
+
+        function removeItem(id) { delete cart[id]; updateUI(); }
+        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
+
+        window.onload = () => { renderGrid(products); lucide.createIcons(); };
+    </script>
+</body>
+
+</html>
