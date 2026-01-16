@@ -3,239 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malek | Full-Stack AI & App Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>Cosmic Energy | High-Voltage Refreshment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
-        :root {
-            --bg: #030308;
-            --glass: rgba(255, 255, 255, 0.03);
-            --accent: #7d5fff;
-            --cyan: #3ae3ff;
-            --text: #ffffff;
-            --card-border: rgba(255, 255, 255, 0.1);
-        }
+        :root { --accent: #3ae3ff; --orange: #ff7a3a; --bg: #030308; }
+        body { margin: 0; background: var(--bg); color: white; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
 
-        * {
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+        /* Background Systems */
+        #stars-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: #030308; }
+        .lighting-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1; 
+            background: radial-gradient(circle at 50% 50%, rgba(58, 227, 255, 0.05) 0%, transparent 80%); }
 
-        body {
-            margin: 0;
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-            /* Deep Space Gradient */
-            background: radial-gradient(circle at top right, #1a1a3a 0%, #030308 50%, #0c0c1d 100%);
-            background-attachment: fixed;
-        }
+        nav { position: fixed; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; z-index: 100; box-sizing: border-box; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px); }
+        .back-link { color: white; text-decoration: none; opacity: 0.5; font-size: 0.8rem; transition: 0.3s; }
+        .back-link:hover { opacity: 1; color: var(--accent); }
 
-        /* Animated Star Field Effect */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.4;
-            z-index: -1;
-            pointer-events: none;
-        }
+        .section { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 10%; position: relative; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; width: 100%; max-width: 1200px; }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+        .product-image-wrapper { position: relative; display: flex; justify-content: center; }
+        .product-image-wrapper img { width: 100%; max-width: 380px; filter: drop-shadow(0 0 30px rgba(58, 227, 255, 0.2)); z-index: 2; position: relative; }
+        
+        .product-glow { position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(58, 227, 255, 0.2) 0%, transparent 70%); filter: blur(60px); z-index: 1; }
 
-        /* Navbar */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 30px 0;
-        }
+        h2 { font-size: clamp(3rem, 8vw, 6rem); margin: 0; line-height: 0.85; font-weight: 700; text-transform: uppercase; }
+        p { font-size: 1.2rem; opacity: 0.6; margin: 30px 0; line-height: 1.6; max-width: 450px; }
 
-        .logo {
-            font-weight: 700;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            color: var(--cyan);
-            text-shadow: 0 0 10px var(--cyan);
-        }
+        .btn { padding: 20px 50px; background: white; color: black; text-decoration: none; font-weight: bold; transition: 0.4s; border: 1px solid white; display: inline-block; }
+        .btn:hover { background: transparent; color: white; box-shadow: 0 0 30px var(--accent); border-color: var(--accent); }
 
-        /* Hero Section */
-        header {
-            text-align: center;
-            padding: 100px 0;
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            margin: 0;
-            line-height: 1.1;
-            background: linear-gradient(90deg, #fff, var(--cyan), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-sub {
-            font-size: 1.2rem;
-            margin: 20px 0;
-            opacity: 0.8;
-            letter-spacing: 1px;
-        }
-
-        /* Glass Cards */
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 40px;
-            margin-bottom: 40px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .glass-card:hover {
-            border-color: var(--cyan);
-            box-shadow: 0 0 30px rgba(58, 227, 255, 0.1);
-            transform: translateY(-10px);
-        }
-
-        /* Grid for Projects */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            margin-top: 50px;
-        }
-
-        /* Skills Tags */
-        .skill-group {
-            margin-top: 30px;
-        }
-
-        .skill-tag {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--card-border);
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            margin: 5px;
-            color: var(--cyan);
-            transition: 0.3s;
-        }
-
-        .skill-tag:hover {
-            background: var(--cyan);
-            color: #000;
-            box-shadow: 0 0 15px var(--cyan);
-        }
-
-        /* Galaxy Button */
-        .btn {
-            background: linear-gradient(45deg, var(--accent), var(--cyan));
-            color: white;
-            padding: 18px 45px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-block;
-            margin-top: 30px;
-            transition: 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(125, 95, 255, 0.3);
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px var(--cyan), 0 0 50px var(--accent);
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px 0;
-            opacity: 0.5;
-            font-size: 0.9rem;
-        }
-
-        h2 { color: var(--cyan); font-size: 2rem; margin-top: 0; }
-        h3 { margin-top: 0; color: #fff; }
-
+        @media (max-width: 768px) { .content-grid { grid-template-columns: 1fr; text-align: center; } .product-image-wrapper { order: -1; } }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <nav>
-            <div class="logo">MALEK_010</div>
-            <div class="nav-links">
-                <span style="opacity: 0.7;">5 Years in Tech</span>
+    <div id="stars-container"></div>
+    <div class="lighting-overlay"></div>
+
+    <nav>
+        <a href="../index.html" class="back-link">← BACK TO PORTFOLIO</a>
+        <div style="font-weight: bold; letter-spacing: 2px; color: var(--accent);">COSMIC ENERGY</div>
+    </nav>
+
+    <section class="section">
+        <div class="content-grid">
+            <div class="reveal-box" data-direction="left">
+                <h2>NEON <br> BLAST.</h2>
+                <p>Pure electric energy. Zero sugar. Engineered for the creators of tomorrow.</p>
+                <a href="#" class="btn">GET THE BLAST</a>
             </div>
-        </nav>
-
-        <header>
-            <h1>Coding Across <br>The Digital Galaxy</h1>
-            <p class="hero-sub">Full-Stack Developer Specializing in Flutter, Python & AI Solutions</p>
-            
-            <div class="skill-group">
-                <span class="skill-tag">PYTHON</span>
-                <span class="skill-tag">FLUTTER</span>
-                <span class="skill-tag">DART</span>
-                <span class="skill-tag">JAVASCRIPT</span>
-                <span class="skill-tag">AI & ML</span>
-                <span class="skill-tag">HTML/CSS</span>
+            <div class="product-image-wrapper reveal-box" data-direction="right">
+                <div class="product-glow"></div>
+                <img src="Gemini_Generated_Image_dvh5pldvh5pldvh5.png" alt="Neon Blast">
             </div>
+        </div>
+    </section>
 
-            <a href="https://www.fiverr.com/malek_010" target="_blank" class="btn">Start Your Project</a>
-        </header>
-
-        <section id="work">
-            <div class="glass-card">
-                <h2>🌌 My Expertise</h2>
-                <p>Over the last 5 years, I have built a bridge between complex code and user-friendly design. My mission is to provide scalable, intelligent software that solves real-world problems.</p>
+    <section class="section">
+        <div class="content-grid">
+            <div class="product-image-wrapper reveal-box" data-direction="left">
+                <div class="product-glow" style="background: radial-gradient(circle, rgba(255, 122, 58, 0.2) 0%, transparent 70%);"></div>
+                <img src="Gemini_Generated_Image_5psqrq5psqrq5psq.png" alt="Solar Flare">
             </div>
-
-            <div class="grid">
-                <div class="glass-card">
-                    <h3>📱 Mobile Dev</h3>
-                    <p>Building high-performance, cross-platform apps with <b>Flutter & Dart</b>. One codebase, flawless performance on iOS & Android.</p>
-                </div>
-                <div class="glass-card">
-                    <h3>🤖 AI Integration</h3>
-                    <p>Leveraging <b>Python</b> to integrate AI models and automation. I make apps smarter with LLMs and predictive data.</p>
-                </div>
-                <div class="glass-card">
-                    <h3>💻 Web Solutions</h3>
-                    <p>Crafting modern, responsive front-ends with <b>JavaScript & CSS</b>. Focused on speed, SEO, and galaxy-tier aesthetics.</p>
-                </div>
+            <div class="reveal-box" data-direction="right">
+                <h2 style="color: var(--orange);">SOLAR <br> FLARE.</h2>
+                <p>Infused with citrus minerals. A burst of solar power in every drop.</p>
+                <a href="#" class="btn" style="background: var(--orange); border-color: var(--orange);">ORDER NOW</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section style="text-align: center; margin-top: 50px;">
-            <div class="glass-card" style="border: 1px solid var(--cyan);">
-                <h2>Ready to Launch?</h2>
-                <p>I am currently accepting new projects on Fiverr. Let's build something out of this world.</p>
-                <a href="https://www.fiverr.com/malek_010" target="_blank" class="btn">Visit My Fiverr Profile</a>
-            </div>
-        </section>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
 
-        <footer>
-            <p>&copy; 2026 Malek_010 | Designed for the Future</p>
-        </footer>
-    </div>
+        // Starfield logic
+        const starsContainer = document.getElementById('stars-container');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.style.position = 'absolute';
+            star.style.width = Math.random() * 2 + 'px';
+            star.style.height = star.style.width;
+            star.style.background = 'white';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.opacity = Math.random();
+            starsContainer.appendChild(star);
+        }
 
+        // Entrance & Exit animations
+        gsap.utils.toArray(".reveal-box").forEach(box => {
+            const dir = box.dataset.direction;
+            gsap.fromTo(box, 
+                { opacity: 0, x: dir === "left" ? -100 : (dir === "right" ? 100 : 0) },
+                { 
+                    opacity: 1, x: 0, duration: 1.5, ease: "expo.out",
+                    scrollTrigger: {
+                        trigger: box,
+                        start: "top 85%",
+                        end: "bottom 15%",
+                        toggleActions: "play reverse play reverse"
+                    }
+                }
+            );
+        });
+
+        // Floating Physics
+        gsap.utils.toArray(".product-image-wrapper img").forEach(img => {
+            gsap.to(img, { y: -20, rotation: 1, duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        });
+    </script>
 </body>
 </html>
